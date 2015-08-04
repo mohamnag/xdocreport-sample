@@ -1,2 +1,2 @@
-"$project.Name","$project.HomePage","$project.Developer"
-XDocReport,http://sample.com,Me
+"$project.Name","$project.HomePage","$project.Developer","$developers.Name","$developers.LastName","$developers.Mail"
+XDocReport,http://sample.com,Me,one,two,you@there.com
