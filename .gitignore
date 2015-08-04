@@ -31,3 +31,4 @@ output.odt
 output.docx
 
 .idea/
+*.iml
