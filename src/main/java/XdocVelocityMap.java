@@ -3,11 +3,10 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import model.ProjectMapProvider;
 
 import java.io.*;
-import java.util.Map;
-
-import static model.ProjectMapProvider.getProjectMap;
 
 /**
  * This generates the report from a XDOC source document and using Velocity
@@ -23,10 +22,19 @@ public class XdocVelocityMap {
             InputStream in = XdocVelocityMap.class.getResourceAsStream("template.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
 
+            // Add meta-data for the fields who build up a list
+            FieldsMetadata metadata = new FieldsMetadata();
+            metadata.addFieldAsList("developers.Name");
+            metadata.addFieldAsList("developers.LastName");
+            metadata.addFieldAsList("developers.Mail");
+            report.setFieldsMetadata(metadata);
+
             // 2) Create context Map
             IContext context = report.createContext();
-            Map<String, String> project = getProjectMap();
-            context.put("project", project);
+            // Register project map
+            context.put("project", ProjectMapProvider.getProjectMap());
+            // Register developers list
+            context.put("developers", ProjectMapProvider.getDevelopers());
 
             // 3) Generate report by merging Map with the Docx
             OutputStream out = new FileOutputStream(new File("output-velocity-map.docx"));
