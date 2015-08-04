@@ -32,3 +32,6 @@ output.docx
 
 .idea/
 *.iml
+
+/*.docx
+/*.odt
