@@ -3,7 +3,8 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import model.Project;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import model.ModelProvider;
 
 import java.io.*;
 
@@ -21,12 +22,19 @@ public class XdocVelocityPojo {
             InputStream in = XdocVelocityPojo.class.getResourceAsStream("template.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
 
+            // Add meta-data for the fields who build up a list
+            FieldsMetadata metadata = new FieldsMetadata();
+            metadata.addFieldAsList("developers.Name");
+            metadata.addFieldAsList("developers.LastName");
+            metadata.addFieldAsList("developers.Mail");
+            report.setFieldsMetadata(metadata);
+
             // 2) Create context Java model
             IContext context = report.createContext();
-
-            Project project = new Project("Test Project Name", "http://www.testproject.com", "you!");
-
-            context.put("project", project);
+            // Register project model
+            context.put("project", ModelProvider.getProject());
+            // Register developers list
+            context.put("developers", ModelProvider.getDevelopers());
 
             // 3) Generate report by merging Java model with the Docx
             OutputStream out = new FileOutputStream(new File("output-velocity-pojo.docx"));
