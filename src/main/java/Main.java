@@ -6,8 +6,9 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import model.Project;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
+
+import static model.ProjectMapProvider.getProjectMap;
 
 /**
  * A very basic sample of using XDocReport library to generate reports from
@@ -131,14 +132,6 @@ public class Main {
         } catch (XDocReportException e) {
             e.printStackTrace();
         }
-    }
-
-    private static Map<String, String> getProjectMap() {
-        Map<String,String> project = new HashMap<String, String>();
-        project.put("Name", "Test Project");
-        project.put("HomePage", "http://test.project.com");
-        project.put("Developer", "angelo.zerr@gmail.com");
-        return project;
     }
 
 }
