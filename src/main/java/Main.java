@@ -3,6 +3,7 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import model.Project;
 
 import java.io.*;
 import java.util.HashMap;
@@ -15,19 +16,6 @@ import java.util.Map;
  * Created by mohamnag on 04/08/15.
  */
 public class Main {
-
-    public static class Project {
-
-        private final String name;
-
-        public Project(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
 
     public static void main(String[] args) {
         xdocVelocityPojo();
@@ -50,7 +38,7 @@ public class Main {
             // 2) Create context Java model
             IContext context = report.createContext();
 
-            Project project = new Project("Test Project Name");
+            Project project = new Project("Test Project Name", "http://www.testproject.com", "you!");
 
             context.put("project", project);
 
@@ -77,11 +65,7 @@ public class Main {
 
             // 2) Create context Map
             IContext context = report.createContext();
-
-            Map<String,String> project = new HashMap<String, String>();
-            project.put("Name", "Test Project");
-            project.put("Mail", "angelo.zerr@gmail.com");
-
+            Map<String, String> project = getProjectMap();
             context.put("project", project);
 
             // 3) Generate report by merging Map with the Docx
@@ -108,7 +92,7 @@ public class Main {
             // 2) Create context Java model
             IContext context = report.createContext();
 
-            Project project = new Project("Test Project Name");
+            Project project = new Project("Test Project Name", "http://www.testproject.com", "you!");
 
             context.put("project", project);
 
@@ -135,11 +119,7 @@ public class Main {
 
             // 2) Create context Map
             IContext context = report.createContext();
-
-            Map<String,String> project = new HashMap<String, String>();
-            project.put("Name", "Test Project");
-            project.put("Mail", "angelo.zerr@gmail.com");
-
+            Map<String, String> project = getProjectMap();
             context.put("project", project);
 
             // 3) Generate report by merging Map with the ODT
@@ -151,6 +131,14 @@ public class Main {
         } catch (XDocReportException e) {
             e.printStackTrace();
         }
+    }
+
+    private static Map<String, String> getProjectMap() {
+        Map<String,String> project = new HashMap<String, String>();
+        project.put("Name", "Test Project");
+        project.put("HomePage", "http://test.project.com");
+        project.put("Developer", "angelo.zerr@gmail.com");
+        return project;
     }
 
 }
