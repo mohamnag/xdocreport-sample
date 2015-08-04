@@ -1,1 +1,2 @@
-$project.Name
+"$project.Name","$project.HomePage","$project.Developer"
+XDocReport,http://sample.com,Me
