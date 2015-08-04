@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * Created by mohamnag on 04/08/15.
  */
-public abstract class ProjectMapProvider {
+public abstract class MapProvider {
 
     public static Map<String, String> getProjectMap() {
         Map<String, String> project = new HashMap<String, String>();

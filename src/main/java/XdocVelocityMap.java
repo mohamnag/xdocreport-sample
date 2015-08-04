@@ -4,7 +4,7 @@ import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
-import model.ProjectMapProvider;
+import model.MapProvider;
 
 import java.io.*;
 
@@ -32,9 +32,9 @@ public class XdocVelocityMap {
             // 2) Create context Map
             IContext context = report.createContext();
             // Register project map
-            context.put("project", ProjectMapProvider.getProjectMap());
+            context.put("project", MapProvider.getProjectMap());
             // Register developers list
-            context.put("developers", ProjectMapProvider.getDevelopers());
+            context.put("developers", MapProvider.getDevelopers());
 
             // 3) Generate report by merging Map with the Docx
             OutputStream out = new FileOutputStream(new File("output-velocity-map.docx"));
