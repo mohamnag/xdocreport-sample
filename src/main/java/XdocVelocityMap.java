@@ -20,6 +20,7 @@ import java.io.*;
 public class XdocVelocityMap {
 
     public static void main(String[] args) {
+
         try {
             // 1) Load Docx file by filling Velocity template engine and cache it to the registry
             InputStream in = XdocVelocityMap.class.getResourceAsStream("template.docx");
@@ -53,6 +54,7 @@ public class XdocVelocityMap {
         } catch (XDocReportException e) {
             e.printStackTrace();
         }
+
     }
 
 }
