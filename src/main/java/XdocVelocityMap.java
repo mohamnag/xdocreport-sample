@@ -1,3 +1,6 @@
+import fr.opensagres.xdocreport.converter.ConverterTypeTo;
+import fr.opensagres.xdocreport.converter.ConverterTypeVia;
+import fr.opensagres.xdocreport.converter.Options;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
@@ -39,6 +42,11 @@ public class XdocVelocityMap {
             // 3) Generate report by merging Map with the Docx
             OutputStream out = new FileOutputStream(new File("output-velocity-map.docx"));
             report.process(context, out);
+
+            // Generate PDF out of report
+            OutputStream pdfOut = new FileOutputStream(new File("output-velocity-map-xdoc.pdf"));
+            Options options = Options.getTo(ConverterTypeTo.PDF).via(ConverterTypeVia.XWPF);
+            report.convert(context, options, pdfOut);
 
         } catch (IOException e) {
             e.printStackTrace();
